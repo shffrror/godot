@@ -1,0 +1,158 @@
+[gd_scene load_steps=24 format=3 uid="uid://dxgfa2dhdu6tf"]
+
+[ext_resource type="Texture2D" uid="uid://d3x3lcehcmj36" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/hurt/hurt-sheet.png" id="1_5l5bn"]
+[ext_resource type="Texture2D" uid="uid://cp3uh6ovw7fyi" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/idle/Sprites/idle-1.png" id="2_e5g0v"]
+[ext_resource type="Texture2D" uid="uid://ctae40m3w6slc" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/idle/Sprites/idle-2.png" id="3_peo6y"]
+[ext_resource type="Texture2D" uid="uid://dwwmyry7en70n" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/idle/Sprites/idle-3.png" id="4_fb4j4"]
+[ext_resource type="Texture2D" uid="uid://bb1ebfviiiv5i" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/idle/Sprites/idle-4.png" id="5_ia6mj"]
+[ext_resource type="Texture2D" uid="uid://clmfymjl3mjdn" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/jump/Sprites/jump-1.png" id="6_ch1op"]
+[ext_resource type="Texture2D" uid="uid://b37f35bx7fmlv" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/jump/Sprites/jump-2.png" id="7_plld2"]
+[ext_resource type="Texture2D" uid="uid://cs1t333ef14ya" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/jump/Sprites/jump-3.png" id="8_kpusp"]
+[ext_resource type="Texture2D" uid="uid://18ovmfbp8b1g" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/jump/Sprites/jump-4.png" id="9_lens7"]
+[ext_resource type="Texture2D" uid="uid://b724l2005255n" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/jump/Sprites/jump-5.png" id="10_x6i6l"]
+[ext_resource type="Texture2D" uid="uid://dl68tlsmrt555" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-1.png" id="11_433wl"]
+[ext_resource type="Texture2D" uid="uid://c3hyilgiuwdui" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-2.png" id="12_coo2g"]
+[ext_resource type="Texture2D" uid="uid://roxkgp7ixrtk" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-3.png" id="13_uy5ab"]
+[ext_resource type="Texture2D" uid="uid://bf1eip2lalsab" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-4.png" id="14_qxmfb"]
+[ext_resource type="Texture2D" uid="uid://ed14k3y2xv1f" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-5.png" id="15_txtgt"]
+[ext_resource type="Texture2D" uid="uid://bvu3n8m15rj0l" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-6.png" id="16_k0gx7"]
+[ext_resource type="Texture2D" uid="uid://c2nspquiaxkyb" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-7.png" id="17_7hjha"]
+[ext_resource type="Texture2D" uid="uid://c3n0x0x7exmc4" path="res://Sunny Land Collection Files/Assets/Packs/Winter Pack/SPRITES/player/run/Sprites/run-8.png" id="18_ak4mb"]
+
+[sub_resource type="GDScript" id="GDScript_ugq3r"]
+resource_name = "res://Player/Player.gd"
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf3rs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m334o"]
+atlas = ExtResource("1_5l5bn")
+region = Rect2(0, 0, 51, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy5gt"]
+atlas = ExtResource("1_5l5bn")
+region = Rect2(51, 0, 51, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rfpsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m334o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy5gt")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e5g0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_peo6y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fb4j4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ia6mj")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ch1op")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_plld2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kpusp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lens7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_x6i6l")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_433wl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_coo2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_uy5ab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_qxmfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_txtgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_k0gx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_7hjha")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ak4mb")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(2, 10)
+script = SubResource("GDScript_ugq3r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(3, 3)
+shape = SubResource("CapsuleShape2D_yf3rs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -2)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_rfpsf")
+animation = &"Death"
+frame_progress = 0.208894
