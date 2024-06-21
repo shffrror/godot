@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqiut684ycgdu"]
+
+[ext_resource type="Texture2D" uid="uid://hk4xyp2os6e4" path="res://Sunny Land Collection Files/Assets/Environments/Mist Forest/layers/mist-forest-background-back.png" id="1_ihboc"]
+[ext_resource type="Texture2D" uid="uid://cgfmew6lrn5gg" path="res://Sunny Land Collection Files/Assets/Environments/Mist Forest/layers/mist-forest-background-back-trees.png" id="2_273rt"]
+[ext_resource type="Texture2D" uid="uid://dkbg1ejwnael4" path="res://Sunny Land Collection Files/Assets/Environments/Forest/Forest Pack/PNG/sprites/misc/chest/chest-1.png" id="2_auwcw"]
+
+[sub_resource type="GDScript" id="GDScript_yukpr"]
+script/source = "extends ParallaxBackground
+var scrolling_speed = 3
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	scroll_offset.x -= scrolling_speed + delta
+"
+
+[node name="BG" type="ParallaxBackground"]
+script = SubResource("GDScript_yukpr")
+
+[node name="Background" type="ParallaxLayer" parent="."]
+position = Vector2(78, -1)
+motion_mirroring = Vector2(1151, 2.08165e-12)
+
+[node name="Mist-forest-background-back" type="Sprite2D" parent="Background"]
+position = Vector2(575, 308)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ihboc")
+
+[node name="Chest" type="ParallaxLayer" parent="."]
+position = Vector2(78, -1)
+motion_mirroring = Vector2(1151, 2.08165e-12)
+
+[node name="Chest-1" type="Sprite2D" parent="Chest"]
+position = Vector2(1026, 438)
+texture = ExtResource("2_auwcw")
+
+[node name="Trees" type="ParallaxLayer" parent="."]
+position = Vector2(78, -1)
+motion_scale = Vector2(0.7, 0.7)
+
+[node name="Mist-forest-background-back" type="Sprite2D" parent="Trees"]
+position = Vector2(-61, 565)
+scale = Vector2(2, 2)
+texture = ExtResource("2_273rt")
+
+[node name="Mist-forest-background-back2" type="Sprite2D" parent="Trees"]
+position = Vector2(84, 329)
+scale = Vector2(2, 2)
+texture = ExtResource("2_273rt")
+
+[node name="Mist-forest-background-back3" type="Sprite2D" parent="Trees"]
+position = Vector2(1207, 486)
+scale = Vector2(2, 2)
+texture = ExtResource("2_273rt")
+
+[node name="Mist-forest-background-back4" type="Sprite2D" parent="Trees"]
+position = Vector2(940, 355)
+scale = Vector2(2, 2)
+texture = ExtResource("2_273rt")

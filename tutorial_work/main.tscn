@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl6pw8erv6q53"]
+[gd_scene load_steps=3 format=3 uid="uid://cl6pw8erv6q53"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lpnsg"]
+[ext_resource type="PackedScene" uid="uid://bqiut684ycgdu" path="res://Scenes/background.tscn" id="2_gnwyk"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(46, -30)
@@ -9,19 +10,19 @@ script = ExtResource("1_lpnsg")
 [node name="Play" type="Button" parent="."]
 offset_left = 260.0
 offset_top = 340.0
-offset_right = 335.0
-offset_bottom = 371.0
+offset_right = 557.0
+offset_bottom = 451.0
 text = "Play"
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 639.0
-offset_top = 333.0
-offset_right = 714.0
-offset_bottom = 364.0
-tooltip_text = "Select this button to close the game.
-"
+offset_left = 596.0
+offset_top = 339.0
+offset_right = 893.0
+offset_bottom = 450.0
 text = "Quit
 "
 
+[node name="BG" parent="." instance=ExtResource("2_gnwyk")]
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_play_pressed"]
